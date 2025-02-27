@@ -445,11 +445,105 @@
             border-radius: 0.5rem;
             overflow-x: auto;
             margin-bottom: 1.5rem;
+            white-space: wrap; /* REMOVE THIS FOR SCROLLBAR */
         }
         
         .blog-body code {
             font-family: 'Courier New', monospace;
             color: #60a5fa;
+        }
+
+        /* Table of Contents Styles */
+        .toc {
+            background-color: #1e293b;
+            border-radius: 0.5rem;
+            margin: 2rem 0;
+            padding: 1rem;
+            border-left: 0.25rem solid #60a5fa;
+        }
+
+        .toc details {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .toc summary {
+            font-weight: 600;
+            color: #f8fafc;
+            padding: 0.5rem 0;
+            list-style: none;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .toc summary::before {
+            content: '▶';
+            position: absolute;
+            left: 0;
+            color: #60a5fa;
+            font-size: 0.8rem;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: transform 0.3s ease;
+        }
+
+        .toc details[open] summary::before {
+            transform: translateY(-50%) rotate(90deg);
+        }
+
+        .toc span.details {
+            font-size: 1.2rem;
+        }
+
+        .toc-inner {
+            padding: 0.5rem 0 0.5rem 1rem;
+            margin-top: 0.5rem;
+            border-top: 1px solid #334155;
+        }
+
+        .toc-inner ul {
+            list-style-type: none;
+            padding-left: 0.5rem;
+        }
+
+        .toc-inner li {
+            margin-bottom: 0.75rem;
+            position: relative;
+            padding-left: 1rem;
+        }
+
+        .toc-inner li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #60a5fa;
+        }
+
+        .toc-inner a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            padding: 0.2rem 0;
+            display: inline-block;
+        }
+
+        .toc-inner a:hover {
+            color: #60a5fa;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .toc {
+                padding: 0.75rem;
+            }
+            
+            .toc span.details {
+                font-size: 1rem;
+            }
+            
+            .toc-inner {
+                padding-left: 0.5rem;
+            }
         }
         
         .close-blog {
