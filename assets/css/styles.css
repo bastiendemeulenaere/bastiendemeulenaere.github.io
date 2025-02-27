@@ -82,9 +82,10 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            height: 85vh;
+            min-height: 85vh;
             position: relative;
             overflow: hidden;
+            padding: 2rem 1rem; /* Added padding for better spacing on small screens */
         }
         
         .matrix-bg {
