@@ -901,6 +901,40 @@ main section,
   margin-top: 2rem;
 }
 
+.blog-screenshot {
+  width: 100%;
+  max-width: 600px; /* Reasonable max-width for screenshots */
+  height: auto; 
+  object-fit: contain;
+  border-radius: 0.5rem;
+  margin: 1rem auto 0.5rem; 
+  display: block; 
+  border: 1px solid var(--border-color);
+  background-color: #ffffff10;
+  padding: 0.5rem;
+}
+
+.blog-screenshot:hover {
+  transform: scale(1.02);
+  transition: transform 0.3s ease;
+}
+
+figure {
+  margin: 2rem 0;
+  text-align: center;
+}
+
+figcaption {
+  font-size: 0.85rem;
+  color: #94a3b8; 
+  text-align: center;
+  margin-top: 0.5rem;
+  font-style: italic;
+  max-width: 600px; 
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* Animations */
 @keyframes fadeIn {
   from {

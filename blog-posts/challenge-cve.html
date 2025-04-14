@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A blog about the CVE-2025-29927 vulnerability and its implications.">
+    <meta name="keywords" content="CVE-2025-29927, Next.js, Middleware, Vulnerability, Exploit, Cybersecurity">
+    <meta name="author" content="Bastien De Meulenaere">
+    <title>Blog - Bastien De Meulenaere Portfolio</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../assets/css/styles.css">
+</head>
+<body>
+    
+    <main>
+        <div class="blog-content active">
+            <div class="blog-content-container">
+                <div class="blog-header">
+                    <h1 class="blog-title">CVE-2025-29927: Next.js Middleware Bypass Vulnerability - My First Challenge for Intigriti</h1>
+                    <div class="blog-meta">
+                        <div class="blog-date">
+                            <i class="far fa-calendar-alt" aria-label="Date"></i>
+                            <span>April 13, 2025</span>
+                        </div>
+                        <div class="blog-author">
+                            <i class="far fa-user" aria-label="Author"></i>
+                            <span>Bastien De Meulenaere</span>
+                        </div>
+                        <div class="blog-time">
+                            <i class="fa-solid fa-clock" aria-label="Time"></i>
+                            <span>4 min read</span>
+                        </div>
+                    </div>
+                    <img src="../assets/img/blogs/challenge_cve_cover.png" alt="challenge_cve_cover" class="blog-featured-img">
+                </div>
+
+                <div class="toc">
+                    <details>
+                        <summary><span class="details">Table of Contents</span></summary>
+                        <div class="toc-inner">
+                        <ul>
+                            <li><a href="#introduction">Introduction</a></li>
+                            <li><a href="#what">CVE-2025-29927 Explained</a></li>
+                            <li><a href="#demo">A quick demo</a></li>
+                            <li><a href="#conclusion">Conclusion</a></li>
+                        </ul>
+                    </div>
+                    </details>
+                </div>
+                
+                <div class="blog-body">
+                    <h2 id="introduction">Introduction</h2>
+                    <p>
+                        Recently there was a vulnerability discovered in Next.js, a popular React framework. The vulnerability, known as CVE-2025-29927, allows attackers to bypass middleware and access sensitive information. This vulnerability is particularly concerning because it affects a wide range of applications that use Next.js, making it a potential target for attackers.
+                    </p>
+                    <p>
+                        Since I do my internship at Intigriti, I decided to make a little challenge for the researchers to showcase how easy it is to exploit. Together with my colleague, <a href="https://www.linkedin.com/in/cryptocat/" class="underline-link">CryptoCat</a>, I created a simple Next.js application in the theme of "Hackdonalds" to showcase the vulnerability.
+                    </p>
+                    <figure>
+                        <img src="../assets/img/blogs/challenge_cve_twitter.png" alt="Twitter announcement of the challenge" class="blog-screenshot">
+                        <figcaption>Twitter announcement of the Hackdonalds challenge</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="../assets/img/blogs/challenge_cve_linkedin.png" alt="LinkedIn post about the challenge" class="blog-screenshot">
+                        <figcaption>LinkedIn post about the Hackdonalds challenge</figcaption>
+                    </figure>
+                    <p>
+                        We launched the challenge online and people could write a write-up and win some Intigriti swag.
+                    </p>
+                    <p>
+                        <a href="https://hackdonalds.intigriti.io/" class="underline-link">Check out the challenge here!</a>
+                    </p>
+
+                    <h2 id="what">CVE-2025-29927 Explained</h2>
+                    <p>
+                        There was a big uproar in the hacker community about this vulnerability. The CVSS-score is 9.1 and rated as critical. The vulnerability allows an attacker to bypass middleware in Next.js applications, which can lead to unauthorized access to sensitive information or functionality.
+                    </p>
+                    <p>
+                        All applications with version 11.1.4 through 15.2.2 were affected. The vulnerability was discovered by <a href="https://zhero-web-sec.github.io/research-and-things/nextjs-and-the-corrupt-middleware" class="underline-link">Rachid Allam (zhero)</a> and reported to the Next.js team. The Next.js team quickly released a patch to fix the vulnerability, but many applications were still vulnerable at the time of writing.
+                    </p>
+                    <p>
+                        I could go into the technical details of the vulnerability, but I will leave that to the researchers who write a write-up. The vulnerability is a classic example of how a small oversight in code can lead to a major security issue. It serves as a reminder to always be vigilant and to regularly review and update your code to ensure that it is secure.
+                    </p>
+                    <p>
+                        Basically any Next.js application that uses authentication in its middleware is affected in a way that let's say if there is a page that only the admin can access, you can bypass the middleware and access the page without being authenticated. This is done by adding a <em>x-middleware-subrequest</em> header to the request with the value of <em>middleware</em> or any variation like <em>src/middleware:src/middleware:src/middleware:src/middleware:src/middleware</em>, depending on how te application files are structured. This header is used by Next.js to determine if the request is a subrequest or not. By adding this header, you can trick Next.js into thinking that the request is a subrequest and bypass the middleware.
+                    </p>
+
+                    <h2 id="demo">A quick demo</h2>
+                    <p>
+                        We are presented with an application that seems to be a restaurant application, more so a slight modified version of our beloved McDonald's. The application is a simple Next.js application with a menu page and a page that only the admin can access. The login page to get to the admin panel is protected by middleware that checks if the user is authenticated. If the user is not authenticated, they are redirected to the login page and get an error. If the user is authenticated, they are allowed to access the admin page.
+                    </p>
+                        <figure>
+                            <img src="../assets/img/blogs/challenge_cve_login_page.png" alt="challenge_cve_login_page" class="blog-screenshot">
+                        </figure>
+                    <p>
+                        When we try to login with a random password we see that in BurpSuite we get this response:
+                    </p>
+                    <pre>
+                        <code>
+                            {
+                                "success":false,"error":"Invalid password"
+                            }
+                        </code>
+                    </pre>
+                    <p>
+                        What about going to the admin page directly? ...
+                    </p>
+                    <pre>
+                        <code>
+                            HTTP/2 307 Temporary Redirect
+                            Date: Mon, 14 Apr 2025 16:21:58 GMT
+                            Location: /login
+                            Strict-Transport-Security: max-age=31536000; includeSubDomains
+
+                            /login
+                        </code>
+                    </pre>
+                    <p>
+                        Nope. That also doesn't seems to work.
+                    </p>
+
+                    <p>
+                        Now what if we try to add the header <em>x-middleware-subrequest</em> with the value of <em>middleware</em>, we can see that we get a different response:
+                    </p>
+
+                        <figure>
+                            <img src="../assets/img/blogs/challenge_cve_admin_page.png" alt="challenge_cve_admin_page" class="blog-screenshot">
+                        </figure>
+
+                    <p>
+                        Success! 🎉 We are now able to access the admin page without being authenticated. The challenge goes further than this with some other vulnerability that needs to be exploited but I'll leave that up to you guys!
+                    </p>
+
+                    <h2 id="conclusion">Conclusion</h2>
+                    <p>
+                        The CVE-2025-29927 vulnerability is a serious issue that affects a wide range of applications worldwide. I'm sure that, even though this issue is now public, the vulnerability will still be present in a lot of application so bug hunters should keep an eye out for this.
+                    </p>
+                    <p>
+                        For people looking to patch this, I have good news. Vercel, the company behind Next.js, has released patches for the vulnerability so upgrade as soon as possible! If updating to a patched version is not preferred, the recommended workaround is to strip away external user requests containing the x-middleware-subrequest header from reaching your Next.js application.
+                    </p>
+                </div>
+                
+                <div class="blog-footer">
+                    <a href="/blog" class="back-to-blog">← Back to Blog</a>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>
