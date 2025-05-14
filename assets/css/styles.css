@@ -78,7 +78,7 @@ nav {
 
 /* Main Content Styles */
 main {
-  padding: 5rem 1.5rem 0;
+  padding: 7rem 1.5rem 0;
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -987,6 +987,11 @@ figcaption {
 
 /* Responsive Styles */
 @media (max-width: 768px) {
+
+  main {
+    padding: 5rem 1.5rem 0;
+  }
+
   .nav-links {
     gap: 1rem;
   }
@@ -1089,6 +1094,11 @@ figcaption {
 }
 
 @media (max-width: 480px) {
+
+  main {
+    padding: 5rem 1.5rem 0;
+  }
+
   .countdown-container {
     gap: 0.5rem;
   }
