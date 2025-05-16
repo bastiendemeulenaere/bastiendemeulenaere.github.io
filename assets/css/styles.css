@@ -29,7 +29,6 @@ body {
   color: var(--light-color);
 }
 
-/* Navigation Styles */
 nav {
   display: flex;
   justify-content: center;
@@ -76,7 +75,7 @@ nav {
   border-radius: 0.5rem;
 }
 
-/* Main Content Styles */
+
 main {
   padding: 7rem 1.5rem 0;
   max-width: 1200px;
@@ -93,17 +92,16 @@ section.active {
   display: block;
 }
 
-/* Home Section */
 .home-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  min-height: 85vh;
   position: relative;
   overflow: hidden;
   padding: 2rem 1rem; /* Added padding for better spacing on small screens */
+  margin-bottom: 5rem;
 }
 
 .profile {
@@ -350,7 +348,6 @@ section.active {
   color: var(--dark-color);
 }
 
-/* Blog Page Styles */
 .blog-content {
   display: none;
   position: fixed;
@@ -484,7 +481,6 @@ section.active {
   color: var(--primary-color);
 }
 
-/* Table of Contents Styles */
 .toc {
   background-color: #1e293b;
   border-radius: 0.5rem;
@@ -678,7 +674,6 @@ footer {
   background-color: rgba(100, 255, 218, 0.1);
 }
 
-/* Blog content specific styles */
 .blog-footer {
   margin-top: 2rem;
   padding-top: 2rem;
@@ -694,7 +689,6 @@ main section,
   visibility: visible;
 }
 
-/* Coming Soon Page Styles */
 .coming-soon-container {
   display: flex;
   justify-content: center;
@@ -903,7 +897,7 @@ main section,
 
 .blog-screenshot {
   width: 100%;
-  max-width: 600px; /* Reasonable max-width for screenshots */
+  max-width: 600px;
   height: auto; 
   object-fit: contain;
   border-radius: 0.5rem;
@@ -933,6 +927,16 @@ figcaption {
   max-width: 600px; 
   margin-left: auto;
   margin-right: auto;
+}
+
+
+#index #sticky-footer,
+body#index #sticky-footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100vw;
+  z-index: 99;
 }
 
 /* Animations */
